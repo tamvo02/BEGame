@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Đăng nhập</title>
+  </head>
+  <body>
+    <h2>Đăng nhập</h2>
+    <form id="loginForm">
+      <div>
+        <label for="username">Tên đăng nhập:</label>
+        <input type="text" id="username" name="username">
+      </div>
+      <div>
+        <label for="password">Mật khẩu:</label>
+        <input type="password" id="password" name="password">
+      </div>
+      <button type="submit">Đăng nhập</button>
+    </form>
+    <script>
+      const loginForm = document.getElementById('loginForm');
+      loginForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        const url = 'http://192.168.102.100:8096/admin/login';
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ username, password })
+        });
+        if (response.ok) {
+          console.log(response.data)
+        } else {
+          alert('Tên đăng nhập hoặc mật khẩu không đúng.');
+        }
+      });
+    </script>
+  </body>
+</html>
